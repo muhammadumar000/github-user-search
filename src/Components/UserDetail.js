@@ -42,7 +42,6 @@ export default UserDetail;
 
 const Wrap = styled.div`
  min-height: 25rem;
- /* border: 2px solid red; */
  min-width: 50%;
  display: flex;
  background-color: #143F6B;

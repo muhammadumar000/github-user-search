@@ -1,46 +1,79 @@
 import styled from 'styled-components';
 import UserDetail from './Components/UserDetail';
-import {useState} from 'react';
+import { useState } from 'react';
 
 function App() {
-  const [userName,setUserName] = useState('');
-  const [userData,setUserData] = useState({});
-  const fetchUserData = async(name) => {
-     const response = await fetch(`https://api.github.com/users/${name}`);
-     const data = await response.json();
-    
-     setUserData(data);
-  } 
+  const [userName, setUserName] = useState('');
+  const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const fetchUserData = async (name) => {
+    const response = await fetch(`https://api.github.com/users/${name}`);
+    if (response.status === 404) {
+      setUserData({});
+      setError("Not Found")
+      setLoading(false)
+    }
+    else {
+      const data = await response.json();
+      setUserData(data);
+      setError(null)
+      setLoading(false)
+    }
+  }
 
   const inputHandler = (event) => {
     setUserName(event.target.value);
   }
 
   const clickHandler = () => {
-    if(userName){
+    if (userName) {
+      setLoading(true)
       fetchUserData(userName);
       setUserName('');
 
     }
-    else{
-      alert('Enter Valid Username');
+    else {
+      setError("Please Enter A Valid username")
       setUserName('')
     }
-    
+
   }
 
-  return (
-   <Container>
-     <Search>
-       <i className="fa-solid fa-magnifying-glass"></i>
-       <input value = {userName} onChange={inputHandler} type="text" placeholder='Search Github Username...'/>
-       <button onClick={clickHandler}>Search</button>
-     </Search>
-     {
-      userData.name && <UserDetail data = {userData} />
-     }
+  const loadingMessage = () => {
+    return (
+      loading && (
+        <div className="alert-info">
+          <h2>loading.....</h2>
+        </div>
+      )
+    );
+  };
+  const errorMessage = () => {
+    return (
+      error && (
+        <div className='alert'>
+          <p>{error}</p>
+        </div>
+      )
+    );
+  };
 
-   </Container>
+
+  return (
+    <Container>
+      {errorMessage()}
+      <Search>
+        <i className="fa-solid fa-magnifying-glass"></i>
+        <input value={userName} onChange={inputHandler} type="text" placeholder='Search Github Username...' />
+        <button onClick={clickHandler}>Search</button>
+      </Search>
+      {loadingMessage()}
+      {
+        userData.name && <UserDetail data={userData} />
+      }
+
+    </Container>
   );
 }
 

@@ -3,11 +3,11 @@ import styled from 'styled-components'
 
 const UserDetail = ({data}) => {
   const date = new Date(data.created_at);
-  
+  // console.log(data)
   return (
    <Wrap>
     <Avatar>
-      <img src={data.avatar_url} alt="" />
+      <img  className="avatar" src={data.avatar_url} alt="" />
     </Avatar>
     <Details>
       <NameAndDate>
@@ -30,7 +30,7 @@ const UserDetail = ({data}) => {
 
       <DataGrid>
         <h3><i className="fa-solid fa-location-dot"></i>{data.location}</h3>
-        <h3><i class="fa-brands fa-github"></i> <a href={data.html_url}>{data.html_url}</a></h3>
+        <h3><i className="fa-brands fa-github"></i> <a href={data.html_url}>{data.html_url}</a></h3>
       </DataGrid>
 
     </Details>
@@ -77,7 +77,9 @@ flex-direction:column;
 padding-top:3rem;
 
 img{
-  width: 60%;
+  width: 100%;
+  border-radius: 50%;
+  padding: 0rem 1rem;
 }
 @media (max-width:880px){
   width: 100%;

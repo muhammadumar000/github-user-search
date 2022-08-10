@@ -13,4 +13,14 @@ body {
 
 }
 
+.alert{
+  padding: 1rem;
+  position: absolute;
+  top: 5px;
+  background: #143f6b;
+  border-radius: 6px;
+  display: block;
+  color: #68141e;
+  transition-delay: 2s;
+}
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import UserDetail from './Components/UserDetail';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [userName, setUserName] = useState('');

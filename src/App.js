@@ -1,7 +1,6 @@
 import UserDetail from './Components/UserDetail';
 import {useEffect,useState } from 'react';
 import './styles/stylesheet.css';
-import SyncLoader from "react-spinners/SyncLoader";
 
 function App() {
   const [userName, setUserName] = useState('');
@@ -41,22 +40,6 @@ function App() {
 
   }
 
-  const loadingMessage = () => {
-    return (
-      loading && (
-        <div className="alert-info" style={{ marginTop: '5px' }}>
-          {/* <h2>loading.....</h2> */}
-          <SyncLoader
-            color={"#ff9300"}
-            loading={loading}
-            size={25}
-            margin={5}
-            speedMultiplier={0.85}
-          />
-        </div>
-      )
-    );
-  };
   const errorMessage = () => {
     return (
       error && (
